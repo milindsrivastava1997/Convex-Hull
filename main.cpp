@@ -6,8 +6,12 @@ using namespace std;
 int main()
 {
     int n = 0;
-    cout << "Enter the number of points : ";
-    cin >> n;
+
+    do {
+        cout << "Enter the number of points : ";
+        cin >> n;
+        cout << endl;
+    } while (n < 3);
 
     Point* arrayOfPoint;
     arrayOfPoint = new Point[n];
@@ -42,8 +46,8 @@ int main()
     for (int i = 0; i < n; i++)
     {
         arrayOfPoint[i].setPolarAngle();
-        arrayOfPoint[i].output();
-        cout << endl << "--------------------------";
+        //arrayOfPoint[i].output();
+        //cout << endl << "--------------------------";
     }
 
     for (int i = 0; i < n; i++)//sorting array according to polar angle, origin with value -1 is first element
@@ -79,11 +83,11 @@ int main()
         }
     }
 
-    for (int i = 0; i < n; i++)
+    /*for (int i = 0; i < n; i++)
     {
         arrayOfPoint[i].output();
         cout << endl << "--------------------------";
-    }
+    }*/
 
     Stack stackOfPoint;
     stackOfPoint.push(arrayOfPoint[0]);
@@ -91,23 +95,23 @@ int main()
     for (int i = 2; i < n; i++)
     {
         stackOfPoint.push(arrayOfPoint[i]);
-        cout << endl << "Count=" << stackOfPoint.getCount();
+        //cout << endl << "Count=" << stackOfPoint.getCount();
         if (stackOfPoint.checkCCW() == true)
         {
-            cout << "CCW" << endl;
+            //cout << "CCW" << endl;
             continue;
         }
         else
         {
             while (stackOfPoint.checkCCW() == false)
             {
-                cout << "CW" << endl;
+                //cout << "CW" << endl;
                 stackOfPoint.remove2ndElement();
             }
            
         }
     }
-    cout << "---Final---" << endl;
+    //cout << "---Final---" << endl;
     stackOfPoint.output();
 
     _getch();

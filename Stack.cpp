@@ -67,8 +67,8 @@ void Stack::remove2ndElement(void)
     backToStack = pop();
     temp = pop();
     push(backToStack);
-    cout << "Ousted : " << endl;
-    temp.shortOutput();
+    //cout << "Ousted : " << endl;
+    //temp.shortOutput();
 }
 
 int Stack::getCount(void)
