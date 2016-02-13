@@ -15,7 +15,7 @@ int main()
     for (int i = 0; i < n; i++)
     {
         arrayOfPoint[i].input();
-        arrayOfPoint[i].output();
+        //arrayOfPoint[i].output();
         cout << endl << "--------------------------";
     }
 
@@ -32,12 +32,12 @@ int main()
     {
         if (i != indexOfOrigin)//setting coordinates of points relative to origin
         {
-            arrayOfPoint[i].setx(arrayOfPoint[i].getx() - arrayOfPoint[indexOfOrigin].getx());
-            arrayOfPoint[i].sety(arrayOfPoint[i].gety() - arrayOfPoint[indexOfOrigin].gety());
+            arrayOfPoint[i].setRelativex(arrayOfPoint[i].getx() - arrayOfPoint[indexOfOrigin].getx());
+            arrayOfPoint[i].setRelativey(arrayOfPoint[i].gety() - arrayOfPoint[indexOfOrigin].gety());
         }
     }
-    arrayOfPoint[indexOfOrigin].setx(0);
-    arrayOfPoint[indexOfOrigin].sety(0);
+    arrayOfPoint[indexOfOrigin].setRelativex(0);
+    arrayOfPoint[indexOfOrigin].setRelativey(0);
 
     for (int i = 0; i < n; i++)
     {
@@ -49,14 +49,33 @@ int main()
     for (int i = 0; i < n; i++)//sorting array according to polar angle, origin with value -1 is first element
     {
         int j = i;
-        while (j > 0 && arrayOfPoint[j].getPolarAngle() < arrayOfPoint[j - 1].getPolarAngle())
+        while (j > 0 && arrayOfPoint[j].getPolarAngle() <= arrayOfPoint[j - 1].getPolarAngle())
         {
-            Point temp;
-            temp = arrayOfPoint[j];
-            arrayOfPoint[j] = arrayOfPoint[j - 1];
-            arrayOfPoint[j - 1] = temp;
-            --j;
+            if (arrayOfPoint[j].getPolarAngle() == arrayOfPoint[j - 1].getPolarAngle())
+            {
+                if (arrayOfPoint[j].getx() < arrayOfPoint[j - 1].getx())//FIX
+                {
+                    Point temp;
+                    temp = arrayOfPoint[j];
+                    arrayOfPoint[j] = arrayOfPoint[j - 1];
+                    arrayOfPoint[j - 1] = temp;
+                    --j;
+                    //continue;
+                }
+                else
+                {
+                    j--;
+                }
 
+            }
+            else
+            {
+                Point temp;
+                temp = arrayOfPoint[j];
+                arrayOfPoint[j] = arrayOfPoint[j - 1];
+                arrayOfPoint[j - 1] = temp;
+                --j;
+            }
         }
     }
 
@@ -66,7 +85,30 @@ int main()
         cout << endl << "--------------------------";
     }
 
-
+    Stack stackOfPoint;
+    stackOfPoint.push(arrayOfPoint[0]);
+    stackOfPoint.push(arrayOfPoint[1]);
+    for (int i = 2; i < n; i++)
+    {
+        stackOfPoint.push(arrayOfPoint[i]);
+        cout << endl << "Count=" << stackOfPoint.getCount();
+        if (stackOfPoint.checkCCW() == true)
+        {
+            cout << "CCW" << endl;
+            continue;
+        }
+        else
+        {
+            while (stackOfPoint.checkCCW() == false)
+            {
+                cout << "CW" << endl;
+                stackOfPoint.remove2ndElement();
+            }
+           
+        }
+    }
+    cout << "---Final---" << endl;
+    stackOfPoint.output();
 
     _getch();
     return 0;

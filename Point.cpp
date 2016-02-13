@@ -6,6 +6,8 @@ Point::Point(void)
 {
     x = 0;
     y = 0;
+    relativex = 0;
+    relativey = 0;
     polarAngle = -1.0;
     next = nullptr;
 }
@@ -22,32 +24,39 @@ void Point::output(void)
 {
     cout << endl << "x = " << x;
     cout << endl << "y = " << y;
-    cout << endl << "Polar angle = " << polarAngle;
+    cout << endl << "relative-x = " << relativex;
+    cout << endl << "relative-y = " << relativey;
+    cout << endl << "Tan of Polar angle = " << polarAngle;
+}
+
+void Point::shortOutput(void)
+{
+    cout << endl << "(" << x << "," << y << ")";
 }
 
 void Point::setPolarAngle(void)
 {
-    if (x == 0 && y == 0)
+    if (relativex == 0 && relativey == 0)
     {
         polarAngle = -1;
         return;
     }
-    if (x == 0)
+    if (relativex == 0)
     {
         polarAngle = INF;
         return;
     }
-    polarAngle = ((float)y) / ((float)x);
+    polarAngle = ((float)relativey) / ((float)relativex);
 }
 
-void Point::setx(int t)
+void Point::setRelativex(int t)
 {
-    x = t;
+    relativex = t;
 }
 
-void Point::sety(int t)
+void Point::setRelativey(int t)
 {
-    y = t;
+    relativey = t;
 }
 
 float Point::getPolarAngle(void)

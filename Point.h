@@ -7,6 +7,8 @@ class Point
 private:
     int x;
     int y;
+    int relativex;
+    int relativey;
     float polarAngle;
 
     
@@ -19,10 +21,11 @@ public:
 
     void input(void);
     void output(void);
+    void shortOutput(void);
 
     void setPolarAngle(void);
-    void setx(int);
-    void sety(int);
+    void setRelativex(int);
+    void setRelativey(int);
     //void setSortIndex(int);
 
     float getPolarAngle(void);
